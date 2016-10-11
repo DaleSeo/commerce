@@ -34,8 +34,3 @@ dependencies {
 			'com.h2database:h2:1.4.187'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
-
-
-bootRun {
-	systemProperties = System.properties
-}

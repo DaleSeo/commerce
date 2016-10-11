@@ -1,10 +1,9 @@
-package seo.dale.commerce.record.controller;
+package seo.dale.commerce.record;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import seo.dale.commerce.record.repository.RecordRepository;
 
 @RestController
 @RequestMapping("/record")

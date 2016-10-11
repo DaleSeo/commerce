@@ -1,4 +1,4 @@
-package seo.dale.commerce.record.model;
+package seo.dale.commerce.record;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
