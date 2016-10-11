@@ -1,7 +1,4 @@
-DATABASE_URL: postgres://gigzyhypludzve:JXvob6XCkIpp9JzGpfh8n0Pyws@ec2-54-243-50-185.compute-1.amazonaws.com:5432/d78010iqv9bjb7
-JDBC_DATABASE_URL: jdbc:postgresql://ec2-54-243-50-185.compute-1.amazonaws.com:5432/d78010iqv9bjb7?user=gigzyhypludzve&password=JXvob6XCkIpp9JzGpfh8n0Pyws&sslmode=require
-
 spring:
   datasource:
-    url: ${JDBC_DATABASE_URL}
-    driver-class-name: org.postgresql.Driver
+    url: "jdbc:h2:mem:test"
+    driver-class-name: org.h2.Driver
