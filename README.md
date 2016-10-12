@@ -13,10 +13,20 @@ $ ./gradlew bootRun
 - Heroku : https://git.heroku.com/dale-commerce.git
 
 ## API
+
 ### Record
 ```
 $ curl http://localhost:8080/api/record
 ```
+
+### Auth
+```
+$ curl http://localhost:8080/api/auth/signIn
+```
+```
+$ curl http://localhost:8080/api/auth/signOut
+```
+
 ### Member
 ```
 $ curl -X POST http://localhost:8080/api/member -u user:password -H 'Content-type: application/json' -d '{"username": "dale0713", "password": "12345678", "email": "dale.seo@gmail.com"}'

@@ -20,9 +20,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/record").permitAll()
-                .anyRequest().authenticated()
                 .antMatchers("/api/**").hasRole("USER")
+                .anyRequest().authenticated()
                 .and()
             .httpBasic();
     }
