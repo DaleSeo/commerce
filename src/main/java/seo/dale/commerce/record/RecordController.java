@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/record")
+@RequestMapping("/api/record")
 public class RecordController {
 
     private RecordRepository repository;
