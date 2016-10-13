@@ -23,8 +23,7 @@ public class ProductController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void modify(@PathVariable Long id, @RequestBody Product product) {
-        product.setId(id);
-        service.modify(product);
+        service.modify(id, product);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

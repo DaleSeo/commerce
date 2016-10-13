@@ -8,14 +8,23 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    @Autowired
     private ProductRepository repository;
+
+    @Autowired
+    public ProductService(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     public void create(Product product) {
         repository.save(product);
     }
 
-    public void modify(Product product) {
+    public void modify(Long id, Product product) {
+        Product found = repository.findOne(id);
+        found.setName(product.getName());
+        found.setDescription(product.getDescription());
+        found.setPrice(product.getPrice());
+        found.setStock(product.getStock());
         repository.save(product);
     }
 

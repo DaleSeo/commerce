@@ -17,18 +17,9 @@ public class MemberEntityInitializer {
 
     @PostConstruct
     public void initializer() {
-        service.create(newMember(1L, "admin", "1234", "admin@commerce.com"));
-        service.create(newMember(2L, "user", "1234", "use@commerce.com"));
-        service.create(newMember(3L, "guest", "1234", "guest@commerce.com"));
-    }
-
-    private Member newMember(Long id, String username, String password, String email) {
-        Member member = new Member();
-        member.setId(id);
-        member.setUsername(username);
-        member.setPassword(password);
-        member.setEmail(email);
-        return member;
+        service.create(ModelFactory.newMember(1L, "admin", "1234", "admin@commerce.com"));
+        service.create(ModelFactory.newMember(2L, "user", "1234", "use@commerce.com"));
+        service.create(ModelFactory.newMember(3L, "guest", "1234", "guest@commerce.com"));
     }
 
 }
