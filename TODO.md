@@ -1,2 +1,2 @@
-- index.html
-- Session
+- Spring Session
+- JPA Unit Test

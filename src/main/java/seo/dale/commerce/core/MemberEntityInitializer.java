@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 
 @Component
 @Profile("!production")
-public class EntityInitializer {
+public class MemberEntityInitializer {
 
     @Autowired
     private MemberService service;
