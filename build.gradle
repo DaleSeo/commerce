@@ -27,9 +27,11 @@ repositories {
 }
 
 dependencies {
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa',
-			'org.springframework.boot:spring-boot-starter-web',
-			'org.springframework.boot:spring-boot-starter-security'
+	compile 'org.springframework.boot:spring-boot-starter-web',
+			'org.springframework.boot:spring-boot-starter-security',
+			'org.springframework.boot:spring-boot-starter-data-jpa',
+			'org.springframework.boot:spring-boot-starter-data-redis',
+			'org.springframework.session:spring-session-data-redis:1.2.2.RELEASE'
 	runtime 'org.postgresql:postgresql:9.4.1208',
 			'com.h2database:h2:1.4.187'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
