@@ -10,6 +10,7 @@ import seo.dale.commerce.member.MemberService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.Enumeration;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -20,6 +21,15 @@ public class AuthController {
 
     @RequestMapping("/signIn")
     public void signIn(Principal principal, HttpSession session) {
+	    System.out.println("> principal : " + principal);
+	    Enumeration<String> attributeNames = session.getAttributeNames();
+
+	    while (attributeNames.hasMoreElements()) {
+			String name = attributeNames.nextElement();
+		    Object value = session.getAttribute(name);
+		    System.out.println("> " + name + ": " + value);
+	    }
+
         Member member = service.detail(1L);
         session.setAttribute(Member.class.getSimpleName(), member);
     }

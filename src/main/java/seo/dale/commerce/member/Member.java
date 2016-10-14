@@ -3,9 +3,10 @@ package seo.dale.commerce.member;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Member {
+public class Member implements Serializable {
 
     @Id @GeneratedValue
     private Long id;
