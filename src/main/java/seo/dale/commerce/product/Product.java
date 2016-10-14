@@ -1,11 +1,13 @@
 package seo.dale.commerce.product;
 
+import seo.dale.commerce.common.Model;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Product {
+public class Product extends Model {
 
     @Id @GeneratedValue
     private Long id;

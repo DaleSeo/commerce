@@ -1,17 +1,16 @@
 package seo.dale.commerce.record;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import seo.dale.commerce.common.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Record {
+public class Record extends Model {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private long id;
 
     @NotEmpty

@@ -1,11 +1,15 @@
-package seo.dale.commerce.auth;
+package seo.dale.commerce.core.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import seo.dale.commerce.member.Member;
 import seo.dale.commerce.member.MemberService;
 
 import javax.servlet.http.HttpSession;
@@ -30,8 +34,13 @@ public class AuthController {
 		    System.out.println("> " + name + ": " + value);
 	    }
 
-        Member member = service.detail(1L);
-        session.setAttribute(Member.class.getSimpleName(), member);
+	    UserDetails user = new User();
+	    Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+
+	    SecurityContext securityContext = SecurityContextHolder.getContext();
+	    securityContext.setAuthentication(authentication);
+
+        // Member member = service.detail(1L);
     }
 
     @RequestMapping("/signOut")
