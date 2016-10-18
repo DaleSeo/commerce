@@ -28,6 +28,10 @@ public class MemberService {
         return repository.findOne(id);
     }
 
+    public Member findByUsername(String username) {
+	    return repository.findByUsername(username);
+    }
+
     public List<Member> list() {
         return repository.findAll();
     }

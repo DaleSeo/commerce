@@ -2,6 +2,7 @@ package seo.dale.commerce.member;
 
 import seo.dale.commerce.common.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ public class Member extends Model {
     @Id @GeneratedValue
     private Long id;
 
+	@Column(unique = true)
     private String username;
     private String password;
 

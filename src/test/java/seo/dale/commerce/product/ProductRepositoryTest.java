@@ -16,11 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 public class ProductRepositoryTest {
 
-    @Autowired
-    private TestEntityManager entityManager;
+	@Autowired
+	private ProductRepository repository;
 
     @Autowired
-    private ProductRepository repository;
+    private TestEntityManager entityManager;
 
     @Test
     public void testSave() {

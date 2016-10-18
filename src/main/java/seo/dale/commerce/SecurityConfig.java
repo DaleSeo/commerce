@@ -5,7 +5,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import seo.dale.commerce.core.auth.AuthProvider;
+import seo.dale.commerce.auth.AuthProvider;
 
 @EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -16,9 +16,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 	    auth
-		    .authenticationProvider(authProvider);
-//		    .inMemoryAuthentication()
-//		    .withUser("user").password("password").roles("USER");
+		    .authenticationProvider(authProvider)
+		    .inMemoryAuthentication()
+		    .withUser("user").password("password").roles("USER");
     }
 
     @Override

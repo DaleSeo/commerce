@@ -17,9 +17,9 @@ public class MemberEntityInitializer {
 
     @PostConstruct
     public void initializer() {
-        service.create(ModelFactory.newMember(1L, "admin", "1234", "admin@commerce.com"));
-        service.create(ModelFactory.newMember(2L, "user", "1234", "use@commerce.com"));
-        service.create(ModelFactory.newMember(3L, "guest", "1234", "guest@commerce.com"));
+        service.create(ModelFactory.newMember("admin", "1234", "admin@commerce.com"));
+        service.create(ModelFactory.newMember("user", "1234", "use@commerce.com"));
+        service.create(ModelFactory.newMember("guest", "1234", "guest@commerce.com"));
     }
 
 }

@@ -5,9 +5,8 @@ import seo.dale.commerce.product.Product;
 
 public class ModelFactory {
 
-    public static Member newMember(Long id, String username, String password, String email) {
+    public static Member newMember(String username, String password, String email) {
         Member member = new Member();
-        member.setId(id);
         member.setUsername(username);
         member.setPassword(password);
         member.setEmail(email);
