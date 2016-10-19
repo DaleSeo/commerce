@@ -19,7 +19,14 @@ public class Member extends Model {
 
     private String email;
 
-    public Long getId() {
+	public Member() {
+	}
+
+	public Member(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
         return id;
     }
 

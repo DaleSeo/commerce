@@ -16,7 +16,7 @@ public class Product extends Model {
 
     private String description;
 
-    private Float price;
+    private Double price;
 
     private Integer stock;
 
@@ -44,11 +44,11 @@ public class Product extends Model {
         this.description = description;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

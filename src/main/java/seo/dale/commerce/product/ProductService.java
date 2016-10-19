@@ -25,7 +25,7 @@ public class ProductService {
         found.setDescription(product.getDescription());
         found.setPrice(product.getPrice());
         found.setStock(product.getStock());
-        repository.save(product);
+        repository.save(found);
     }
 
     public void remove(Long id) {

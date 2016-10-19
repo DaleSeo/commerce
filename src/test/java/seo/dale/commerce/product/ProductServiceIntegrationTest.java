@@ -22,14 +22,14 @@ public class ProductServiceIntegrationTest {
     @Test
     public void testCreate() {
         // Given
-        Product saved = ModelFactory.newProduct("Apple", "Red apple", 1000.1F, 100);
+        Product saved = ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100);
         // When
         service.create(saved);
         // Then
         Product found = repository.findOne(saved.getId());
         assertThat(found.getName()).isEqualTo("Apple");
         assertThat(found.getDescription()).isEqualTo("Red apple");
-        assertThat(found.getPrice()).isEqualTo(1000.1F);
+        assertThat(found.getPrice()).isEqualTo(1000.1);
         assertThat(found.getStock()).isEqualTo(100);
     }
 

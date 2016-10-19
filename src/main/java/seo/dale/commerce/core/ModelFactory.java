@@ -13,7 +13,7 @@ public class ModelFactory {
         return member;
     }
 
-    public static Product newProduct(String name, String description, Float price, Integer stock) {
+    public static Product newProduct(String name, String description, Double price, Integer stock) {
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);

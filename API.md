@@ -7,7 +7,7 @@ $ curl http://localhost:8080/api/record
 
 ### Auth
 ```
-$ curl http://localhost:8080/api/auth/signIn?username=guest&password=1234
+$ curl "http://localhost:8080/api/auth/signIn?username=guest&password=1234"
 ```
 ```
 $ curl http://localhost:8080/api/auth/signOut -H 'x-auth-token: <x-auth-token>'

@@ -16,8 +16,9 @@ public class MemberService {
     }
 
     public void modify(Long id, Member member) {
-        member.setId(id);
-        repository.save(member);
+	    Member found = repository.findOne(id);
+	    found.setEmail(member.getEmail());
+        repository.save(found);
     }
 
     public void remove(Long id) {
