@@ -37,8 +37,16 @@ public class OrderRepositoryTest {
 		order.setTotal(35000);
 		repository.save(order);
 
+		entityManager.clear(); // Clear persistence context so entity manager queries again.
+
 		Order saved = entityManager.find(Order.class, order.getId());
-		assertThat(EqualsBuilder.reflectionEquals(saved, order)).isTrue();
+
+		assertThat(saved.getId()).isEqualTo(order.getId());
+		assertThat(saved.getTotal()).isEqualTo(order.getTotal());
+
+		Member savedMember = saved.getMember();
+		assertThat(savedMember.getOrders().size()).isEqualTo(1);
+		assertThat(savedMember.getOrders().contains(saved)).isTrue();
 	}
 
 	@Test

@@ -32,7 +32,13 @@ public class Order extends Model {
 	}
 
 	public void setMember(Member member) {
+		if (member != null) {
+			member.getOrders().remove(this);
+		}
 		this.member = member;
+		if (!member.getOrders().contains(this)) {
+			member.getOrders().add(this);
+		}
 	}
 
 	public void setTotal(double total) {

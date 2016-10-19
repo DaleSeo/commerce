@@ -1,11 +1,11 @@
 package seo.dale.commerce.member;
 
 import seo.dale.commerce.common.Model;
+import seo.dale.commerce.order.Order;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member extends Model {
@@ -18,6 +18,9 @@ public class Member extends Model {
     private String password;
 
     private String email;
+
+	@OneToMany(mappedBy = "member")
+	private List<Order> orders = new ArrayList<>();
 
 	public Member() {
 	}
@@ -57,5 +60,9 @@ public class Member extends Model {
     public void setEmail(String email) {
         this.email = email;
     }
+
+	public List<Order> getOrders() {
+		return orders;
+	}
 
 }
