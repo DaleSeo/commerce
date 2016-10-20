@@ -44,7 +44,7 @@ public class OrderRepositoryTest {
 		assertThat(saved.getId()).isEqualTo(order.getId());
 		assertThat(saved.getTotal()).isEqualTo(order.getTotal());
 
-		Member savedMember = saved.getMember();
+		Member savedMember = entityManager.find(Member.class, member.getId());
 		assertThat(savedMember.getOrders().size()).isEqualTo(1);
 		assertThat(savedMember.getOrders().contains(saved)).isTrue();
 	}
