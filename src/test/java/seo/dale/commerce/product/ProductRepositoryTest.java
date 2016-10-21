@@ -25,7 +25,7 @@ public class ProductRepositoryTest {
     @Test
     public void testSave() {
         Product saved = repository.save(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
-        Product found = entityManager.find(Product.class, 1L);
+        Product found = entityManager.find(Product.class, saved.getId());
 
         assertThat(found).isSameAs(saved);
         assertThat(found.getName()).isEqualTo("Apple");
@@ -37,7 +37,7 @@ public class ProductRepositoryTest {
     @Test
     public void testFindOne() {
         Product saved = entityManager.persist(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
-        Product found = repository.findOne(1L);
+        Product found = repository.findOne(saved.getId());
 
         assertThat(found).isSameAs(saved);
         assertThat(found.getName()).isEqualTo("Apple");
@@ -58,8 +58,8 @@ public class ProductRepositoryTest {
 
     @Test
     public void testDelete() {
-        entityManager.persist(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
-        repository.delete(1L);
+        Product saved = entityManager.persist(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
+        repository.delete(saved.getId());
         Product found = entityManager.find(Product.class, 1L);
 
         assertThat(found).isNull();

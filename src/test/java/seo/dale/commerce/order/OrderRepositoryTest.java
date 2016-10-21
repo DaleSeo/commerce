@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import seo.dale.commerce.core.ModelFactory;
+import seo.dale.commerce.TestUtils;
 import seo.dale.commerce.member.Member;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +27,7 @@ public class OrderRepositoryTest {
 
 	@Before
 	public void setUp() {
-		member = entityManager.persist(ModelFactory.newMember("user", "", ""));
+		member = TestUtils.persistTestMember(entityManager);
 	}
 
 	@Test
