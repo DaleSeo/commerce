@@ -16,9 +16,9 @@ public class ProductEntityInitializer {
 
     @PostConstruct
     public void initializer() {
-        service.create(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
-        service.create(ModelFactory.newProduct("Banana", "Yellow banana", 2000.0, 1000));
-        service.create(ModelFactory.newProduct("Mellon", "Green mellon", 500.0, 500));
+        service.create(EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100));
+        service.create(EntityFactory.newProduct("Banana", "Yellow banana", 2000.0, 1000));
+        service.create(EntityFactory.newProduct("Mellon", "Green mellon", 500.0, 500));
     }
 
 }

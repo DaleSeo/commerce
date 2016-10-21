@@ -1,6 +1,6 @@
 package seo.dale.commerce.member;
 
-import seo.dale.commerce.common.Model;
+import seo.dale.commerce.common.BaseEntity;
 import seo.dale.commerce.order.Order;
 
 import javax.persistence.*;
@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Member extends Model {
-
-    @Id @GeneratedValue
-    private Long id;
+public class Member extends BaseEntity {
 
 	@Column(unique = true)
     private String username;
@@ -26,16 +23,8 @@ public class Member extends Model {
 	}
 
 	public Member(Long id) {
-		this.id = id;
+		super(id);
 	}
-
-	public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

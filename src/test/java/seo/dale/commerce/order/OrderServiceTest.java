@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import seo.dale.commerce.core.ModelFactory;
+import seo.dale.commerce.core.EntityFactory;
 import seo.dale.commerce.member.Member;
 import seo.dale.commerce.member.MemberRepository;
 
@@ -27,7 +27,7 @@ public class OrderServiceTest {
 	@Before
 	public void setUp() {
 		service = new OrderService(repository);
-		member = memberRepository.save(ModelFactory.newMember("user", "", ""));
+		member = memberRepository.save(EntityFactory.newMember("user", "", ""));
 	}
 
 	@Test

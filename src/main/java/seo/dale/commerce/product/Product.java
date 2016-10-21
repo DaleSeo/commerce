@@ -1,16 +1,11 @@
 package seo.dale.commerce.product;
 
-import seo.dale.commerce.common.Model;
+import seo.dale.commerce.common.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
-public class Product extends Model {
-
-    @Id @GeneratedValue
-    private Long id;
+public class Product extends BaseEntity {
 
     private String name;
 
@@ -19,14 +14,6 @@ public class Product extends Model {
     private Double price;
 
     private Integer stock;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

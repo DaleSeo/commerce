@@ -1,31 +1,24 @@
 package seo.dale.commerce.order;
 
-import seo.dale.commerce.common.Model;
+import seo.dale.commerce.common.BaseEntity;
 import seo.dale.commerce.member.Member;
 import seo.dale.commerce.product.Product;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order extends Model {
-
-	@Id @GeneratedValue
-	private Long id;
+public class Order extends BaseEntity {
 
 	@ManyToOne
 	private Member member;
 
+	@OneToMany(mappedBy = "order")
+	private List<OrderItem> orderItems = new ArrayList<>();
+
 	private double total;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Member getMember() {
 		return member;
@@ -39,6 +32,15 @@ public class Order extends Model {
 		if (!member.getOrders().contains(this)) {
 			member.getOrders().add(this);
 		}
+	}
+
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+
+	public boolean containOrderItem(OrderItem orderItem) {
+		//
+		return false;
 	}
 
 	public void setTotal(double total) {

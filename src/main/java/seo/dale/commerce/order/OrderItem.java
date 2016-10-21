@@ -1,17 +1,13 @@
 package seo.dale.commerce.order;
 
+import seo.dale.commerce.common.BaseEntity;
 import seo.dale.commerce.product.Product;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class OrderItem {
-
-	@Id @GeneratedValue
-	private Long id;
+public class OrderItem extends BaseEntity {
 
 	@ManyToOne
 	private Order order;
@@ -23,20 +19,16 @@ public class OrderItem {
 
 	private Double price;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Order getOrder() {
 		return order;
 	}
 
 	public void setOrder(Order order) {
+		if (this.order == null) {
+
+		}
 		this.order = order;
+		order.getOrderItems();
 	}
 
 	public Product getProduct() {

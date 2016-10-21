@@ -7,7 +7,7 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import seo.dale.commerce.core.ModelFactory;
+import seo.dale.commerce.core.EntityFactory;
 import seo.dale.commerce.member.MemberService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +24,7 @@ public class AuthProviderTest {
 	@Before
 	public void setUp() {
 		service = mock(MemberService.class);
-		when(service.findByUsername("guest")).thenReturn(ModelFactory.newMember("guest", "1234", "guest@commerce.com"));
+		when(service.findByUsername("guest")).thenReturn(EntityFactory.newMember("guest", "1234", "guest@commerce.com"));
 
 		provider = new AuthProvider(service);
 	}

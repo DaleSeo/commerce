@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import seo.dale.commerce.core.ModelFactory;
+import seo.dale.commerce.core.EntityFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +22,7 @@ public class ProductServiceIntegrationTest {
     @Test
     public void testCreate() {
         // Given
-        Product saved = ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100);
+        Product saved = EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100);
         // When
         service.create(saved);
         // Then

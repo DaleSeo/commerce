@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import seo.dale.commerce.core.ModelFactory;
+import seo.dale.commerce.core.EntityFactory;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class ProductRepositoryTest {
 
     @Test
     public void testSave() {
-        Product saved = repository.save(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
+        Product saved = repository.save(EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100));
         Product found = entityManager.find(Product.class, saved.getId());
 
         assertThat(found).isSameAs(saved);
@@ -36,7 +36,7 @@ public class ProductRepositoryTest {
 
     @Test
     public void testFindOne() {
-        Product saved = entityManager.persist(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
+        Product saved = entityManager.persist(EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100));
         Product found = repository.findOne(saved.getId());
 
         assertThat(found).isSameAs(saved);
@@ -48,9 +48,9 @@ public class ProductRepositoryTest {
 
     @Test
     public void testFindAll() {
-        Product saved1 = entityManager.persist(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
-        Product saved2 = entityManager.persist(ModelFactory.newProduct("Banana", "Yellow banana", 2000.0, 1000));
-        Product saved3 = entityManager.persist(ModelFactory.newProduct("Mellon", "Green mellon", 500.0, 500));
+        Product saved1 = entityManager.persist(EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100));
+        Product saved2 = entityManager.persist(EntityFactory.newProduct("Banana", "Yellow banana", 2000.0, 1000));
+        Product saved3 = entityManager.persist(EntityFactory.newProduct("Mellon", "Green mellon", 500.0, 500));
         List<Product> list = repository.findAll();
 
         assertThat(list).hasSize(3).contains(saved1).contains(saved2).contains(saved3);
@@ -58,7 +58,7 @@ public class ProductRepositoryTest {
 
     @Test
     public void testDelete() {
-        Product saved = entityManager.persist(ModelFactory.newProduct("Apple", "Red apple", 1000.1, 100));
+        Product saved = entityManager.persist(EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100));
         repository.delete(saved.getId());
         Product found = entityManager.find(Product.class, 1L);
 

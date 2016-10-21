@@ -50,4 +50,33 @@ public class OrderItemRepositoryTest {
 		assertThat(foundProduct.getName()).isEqualTo(product.getName());
 	}
 
+	@Test
+	public void testFind() {
+		Order order = TestUtils.persistTestOrder(entityManager);
+		Product product = TestUtils.persistTestProduct(entityManager);
+
+		OrderItem orderItem = new OrderItem();
+		orderItem.setOrder(order);
+		orderItem.setProduct(product);
+		orderItem.setQuantity(2);
+		orderItem.setPrice(orderItem.getQuantity() * product.getPrice());
+
+		entityManager.persist(orderItem);
+
+		entityManager.clear();
+
+		OrderItem foundOrderItem = repository.findOne(orderItem.getId());
+		assertThat(foundOrderItem.getId()).isEqualTo(orderItem.getId());
+		assertThat(foundOrderItem.getQuantity()).isEqualTo(orderItem.getQuantity());
+		assertThat(foundOrderItem.getPrice()).isEqualTo(orderItem.getPrice());
+
+		Order foundOrder = entityManager.find(Order.class, order.getId());
+		assertThat(foundOrder.getId()).isEqualTo(order.getId());
+		assertThat(foundOrder.getTotal()).isEqualTo(order.getTotal());
+
+		Product foundProduct = entityManager.find(Product.class, product.getId());
+		assertThat(foundProduct.getId()).isEqualTo(product.getId());
+		assertThat(foundProduct.getName()).isEqualTo(product.getName());
+	}
+
 }

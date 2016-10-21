@@ -5,9 +5,32 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
-public class Model implements Serializable {
+@MappedSuperclass
+public class BaseEntity implements Serializable {
+
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	public BaseEntity() {
+	}
+
+	public BaseEntity(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {

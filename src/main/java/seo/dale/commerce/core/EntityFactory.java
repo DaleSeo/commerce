@@ -3,7 +3,7 @@ package seo.dale.commerce.core;
 import seo.dale.commerce.member.Member;
 import seo.dale.commerce.product.Product;
 
-public class ModelFactory {
+public class EntityFactory {
 
     public static Member newMember(String username, String password, String email) {
         Member member = new Member();

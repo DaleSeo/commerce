@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
-import seo.dale.commerce.core.ModelFactory;
+import seo.dale.commerce.core.EntityFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +22,7 @@ public class MemberRepositoryTest {
 
 	@Test
 	public void testFindByUsername() {
-		Member saved = entityManager.persist(ModelFactory.newMember("guest", "1234", "guest@commerce.com"));
+		Member saved = entityManager.persist(EntityFactory.newMember("guest", "1234", "guest@commerce.com"));
 		Member found = repository.findByUsername("guest");
 
 		assertThat(found.getId()).isEqualTo(saved.getId());

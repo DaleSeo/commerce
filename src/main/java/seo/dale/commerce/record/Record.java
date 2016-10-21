@@ -1,14 +1,14 @@
 package seo.dale.commerce.record;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import seo.dale.commerce.common.Model;
+import seo.dale.commerce.common.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Record extends Model {
+public class Record extends BaseEntity {
 
     @Id @GeneratedValue
     private long id;
