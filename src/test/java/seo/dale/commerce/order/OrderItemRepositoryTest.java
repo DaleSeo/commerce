@@ -1,5 +1,7 @@
 package seo.dale.commerce.order;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,62 +23,96 @@ public class OrderItemRepositoryTest {
 	@Autowired
 	private TestEntityManager entityManager;
 
+	private Order order;
+	private Product[] products;
+
+	@Before
+	public void setUp() {
+		order = TestUtils.persistTestOrder(entityManager);
+		products = new Product[]{
+				TestUtils.persistTestProduct(entityManager),
+				TestUtils.persistTestProduct(entityManager, 1)
+		};
+	}
+
 	@Test
 	public void testSave() {
-		Order order = TestUtils.persistTestOrder(entityManager);
-		Product product = TestUtils.persistTestProduct(entityManager);
+		OrderItem orderItem0 = new OrderItem();
+		orderItem0.setOrder(order);
+		orderItem0.setProduct(products[0]);
+		orderItem0.setQuantity(2);
+		orderItem0.setPrice(orderItem0.getQuantity() * products[0].getPrice());
 
-		OrderItem orderItem = new OrderItem();
-		orderItem.setOrder(order);
-		orderItem.setProduct(product);
-		orderItem.setQuantity(2);
-		orderItem.setPrice(orderItem.getQuantity() * product.getPrice());
+		repository.save(orderItem0);
 
-		repository.save(orderItem);
+		OrderItem orderItem1 = new OrderItem();
+		orderItem1.setOrder(order);
+		orderItem1.setProduct(products[1]);
+		orderItem1.setQuantity(3);
+		orderItem1.setPrice(orderItem0.getQuantity() * products[1].getPrice());
+
+		repository.save(orderItem1);
 
 		entityManager.clear();
 
-		OrderItem foundOrderItem = entityManager.find(OrderItem.class, orderItem.getId());
-		assertThat(foundOrderItem.getId()).isEqualTo(orderItem.getId());
-		assertThat(foundOrderItem.getQuantity()).isEqualTo(orderItem.getQuantity());
-		assertThat(foundOrderItem.getPrice()).isEqualTo(orderItem.getPrice());
+		OrderItem foundOrderItem0 = entityManager.find(OrderItem.class, orderItem0.getId());
+		assertThat(foundOrderItem0.getId()).isEqualTo(orderItem0.getId());
+		assertThat(foundOrderItem0.getQuantity()).isEqualTo(orderItem0.getQuantity());
+		assertThat(foundOrderItem0.getPrice()).isEqualTo(orderItem0.getPrice());
+		assertThat(foundOrderItem0.getOrder().getId()).isEqualTo(order.getId());
+		assertThat(foundOrderItem0.getProduct().getId()).isEqualTo(products[0].getId());
 
+		OrderItem foundOrderItem1 = entityManager.find(OrderItem.class, orderItem1.getId());
+		assertThat(foundOrderItem1.getId()).isEqualTo(orderItem1.getId());
+		assertThat(foundOrderItem1.getQuantity()).isEqualTo(orderItem1.getQuantity());
+		assertThat(foundOrderItem1.getPrice()).isEqualTo(orderItem1.getPrice());
+		assertThat(foundOrderItem1.getOrder().getId()).isEqualTo(order.getId());
+		assertThat(foundOrderItem1.getProduct().getId()).isEqualTo(products[1].getId());
+
+		entityManager.clear();
+
+		// OneToMany Test
 		Order foundOrder = entityManager.find(Order.class, order.getId());
-		assertThat(foundOrder.getId()).isEqualTo(order.getId());
-		assertThat(foundOrder.getTotal()).isEqualTo(order.getTotal());
-
-		Product foundProduct = entityManager.find(Product.class, product.getId());
-		assertThat(foundProduct.getId()).isEqualTo(product.getId());
-		assertThat(foundProduct.getName()).isEqualTo(product.getName());
+		assertThat(foundOrder.getOrderItems().size() == 2);
 	}
 
 	@Test
 	public void testFind() {
-		Order order = TestUtils.persistTestOrder(entityManager);
-		Product product = TestUtils.persistTestProduct(entityManager);
+		OrderItem orderItem0 = new OrderItem();
+		orderItem0.setOrder(order);
+		orderItem0.setProduct(products[0]);
+		orderItem0.setQuantity(2);
+		orderItem0.setPrice(orderItem0.getQuantity() * products[0].getPrice());
 
-		OrderItem orderItem = new OrderItem();
-		orderItem.setOrder(order);
-		orderItem.setProduct(product);
-		orderItem.setQuantity(2);
-		orderItem.setPrice(orderItem.getQuantity() * product.getPrice());
+		entityManager.persist(orderItem0);
 
-		entityManager.persist(orderItem);
+		OrderItem orderItem1 = new OrderItem();
+		orderItem1.setOrder(order);
+		orderItem1.setProduct(products[1]);
+		orderItem1.setQuantity(3);
+		orderItem1.setPrice(orderItem0.getQuantity() * products[1].getPrice());
+
+		entityManager.persist(orderItem1);
 
 		entityManager.clear();
 
-		OrderItem foundOrderItem = repository.findOne(orderItem.getId());
-		assertThat(foundOrderItem.getId()).isEqualTo(orderItem.getId());
-		assertThat(foundOrderItem.getQuantity()).isEqualTo(orderItem.getQuantity());
-		assertThat(foundOrderItem.getPrice()).isEqualTo(orderItem.getPrice());
+		OrderItem foundOrderItem0 = repository.findOne(orderItem0.getId());
+		assertThat(foundOrderItem0.getId()).isEqualTo(orderItem0.getId());
+		assertThat(foundOrderItem0.getQuantity()).isEqualTo(orderItem0.getQuantity());
+		assertThat(foundOrderItem0.getPrice()).isEqualTo(orderItem0.getPrice());
+		assertThat(foundOrderItem0.getOrder().getId()).isEqualTo(order.getId());
+		assertThat(foundOrderItem0.getProduct().getId()).isEqualTo(products[0].getId());
 
-		Order foundOrder = entityManager.find(Order.class, order.getId());
-		assertThat(foundOrder.getId()).isEqualTo(order.getId());
-		assertThat(foundOrder.getTotal()).isEqualTo(order.getTotal());
-
-		Product foundProduct = entityManager.find(Product.class, product.getId());
-		assertThat(foundProduct.getId()).isEqualTo(product.getId());
-		assertThat(foundProduct.getName()).isEqualTo(product.getName());
+		OrderItem foundOrderItem1 = repository.findOne(orderItem1.getId());
+		assertThat(foundOrderItem1.getId()).isEqualTo(orderItem1.getId());
+		assertThat(foundOrderItem1.getQuantity()).isEqualTo(orderItem1.getQuantity());
+		assertThat(foundOrderItem1.getPrice()).isEqualTo(orderItem1.getPrice());
+		assertThat(foundOrderItem1.getOrder().getId()).isEqualTo(order.getId());
+		assertThat(foundOrderItem1.getProduct().getId()).isEqualTo(products[1].getId());
 	}
 
+	@After
+	public void tearDown() {
+		entityManager.clear();
+	}
 }

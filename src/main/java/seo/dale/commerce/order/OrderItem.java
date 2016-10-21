@@ -24,11 +24,13 @@ public class OrderItem extends BaseEntity {
 	}
 
 	public void setOrder(Order order) {
-		if (this.order == null) {
-
+		if (this.order != null) {
+			this.order.removeOrderItem(this);
 		}
 		this.order = order;
-		order.getOrderItems();
+		if (this.order.containOrderItem(this)) {
+			this.order.addOrderItem(this);
+		}
 	}
 
 	public Product getProduct() {

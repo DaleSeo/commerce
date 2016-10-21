@@ -39,8 +39,15 @@ public class Order extends BaseEntity {
 	}
 
 	public boolean containOrderItem(OrderItem orderItem) {
-		//
-		return false;
+		return orderItems.contains(orderItem);
+	}
+
+	public boolean removeOrderItem(OrderItem orderItem) {
+		return orderItems.remove(orderItem);
+	}
+
+	public boolean addOrderItem(OrderItem orderItem) {
+		return orderItems.add(orderItem);
 	}
 
 	public void setTotal(double total) {

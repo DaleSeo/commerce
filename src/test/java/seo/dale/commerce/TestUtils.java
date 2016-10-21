@@ -6,6 +6,9 @@ import seo.dale.commerce.member.Member;
 import seo.dale.commerce.order.Order;
 import seo.dale.commerce.product.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestUtils {
 
 	public static Member persistTestMember(TestEntityManager entityManager) {
@@ -13,8 +16,14 @@ public class TestUtils {
 	}
 
 	public static Product persistTestProduct(TestEntityManager entityManager) {
-		Product product = EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100);
-		return entityManager.persist(product);
+		return persistTestProduct(entityManager, 0);
+	}
+
+	public static Product persistTestProduct(TestEntityManager entityManager, int id) {
+		List<Product> productList = new ArrayList<>();
+		productList.add(EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100));
+		productList.add(EntityFactory.newProduct("Banana", "Yellow banana", 2000.0, 1000));
+		return entityManager.persist(productList.get(id));
 	}
 
 	public static Order persistTestOrder(TestEntityManager entityManager) {
