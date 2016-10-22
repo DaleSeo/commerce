@@ -1,5 +1,6 @@
 package seo.dale.commerce.member;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import seo.dale.commerce.common.BaseEntity;
 import seo.dale.commerce.order.Order;
 
@@ -16,7 +17,8 @@ public class Member extends BaseEntity {
 
     private String email;
 
-	@OneToMany(mappedBy = "member")
+	@OneToMany
+	@JsonManagedReference
 	private List<Order> orders = new ArrayList<>();
 
 	public Member() {

@@ -1,5 +1,6 @@
 package seo.dale.commerce.order;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import seo.dale.commerce.common.BaseEntity;
 import seo.dale.commerce.product.Product;
 
@@ -10,9 +11,11 @@ import javax.persistence.ManyToOne;
 public class OrderItem extends BaseEntity {
 
 	@ManyToOne
+	@JsonBackReference
 	private Order order;
 
 	@ManyToOne
+	@JsonBackReference
 	private Product product;
 
 	private Integer quantity;

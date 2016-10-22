@@ -46,3 +46,9 @@ $ curl -X GET http://localhost:8080/api/product/1 -H 'x-auth-token: c1df482e-c42
 ```
 $ curl -X GET http://localhost:8080/api/product -H 'x-auth-token: c1df482e-c428-4482-b549-090f5308b27e'
 ```
+
+### Order
+```
+$ curl -X GET http://localhost:8080/api/orders/1
+
+```

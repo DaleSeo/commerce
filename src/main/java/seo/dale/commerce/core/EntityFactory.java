@@ -1,6 +1,8 @@
 package seo.dale.commerce.core;
 
 import seo.dale.commerce.member.Member;
+import seo.dale.commerce.order.Order;
+import seo.dale.commerce.order.OrderItem;
 import seo.dale.commerce.product.Product;
 
 public class EntityFactory {
@@ -20,6 +22,21 @@ public class EntityFactory {
         product.setPrice(price);
         product.setStock(stock);
         return product;
+    }
+
+    public static Order newOrder(Member member, Double total) {
+	    Order order = new Order();
+	    order.setMember(member);
+	    order.setTotal(total);
+	    return order;
+    }
+
+    public static OrderItem newOrderItem(Order order, Product product, Double price) {
+	    OrderItem orderItem = new OrderItem();
+	    orderItem.setOrder(order);
+	    orderItem.setProduct(product);
+	    orderItem.setPrice(price);
+	    return orderItem;
     }
 
 }

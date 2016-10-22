@@ -1,2 +1,2 @@
-- Spring Session
+- Order : @JsonBackReference and @JsonManagedReference
 - Log4Jdbc SQL Logging

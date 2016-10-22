@@ -36,7 +36,7 @@ public class OrderServiceTest {
 		order.setMember(member);
 		order.setTotal(35000);
 
-		service.createOrder(order);
+		service.create(order);
 //
 //		Order found = repository.findOne(order.getId());
 //		assertThat(EqualsBuilder.reflectionEquals(found, order)).isTrue();

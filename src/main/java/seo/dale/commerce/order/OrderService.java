@@ -2,7 +2,6 @@ package seo.dale.commerce.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import seo.dale.commerce.member.Member;
 
 @Service
 public class OrderService {
@@ -14,12 +13,19 @@ public class OrderService {
 		this.orderRepository = orderRepository;
 	}
 
-	public void createOrder(Order order) {
-		Member member = order.getMember();
-		if (member == null) {
+	public void create(Order order) {
+		if (order.getMember() == null) {
 			throw new OrderException("Can't create order without the member.");
 		}
+		if (order.sizeOrderItems() < 1) {
+			throw new OrderException("Can't create order without any order items.");
+		}
 		orderRepository.save(order);
+	}
+
+	public Order detail(Long id) {
+		Order order = orderRepository.findOne(id);
+		return order;
 	}
 
 }
