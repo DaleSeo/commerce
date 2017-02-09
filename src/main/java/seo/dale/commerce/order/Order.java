@@ -6,10 +6,7 @@ import seo.dale.commerce.common.BaseEntity;
 import seo.dale.commerce.member.Member;
 import seo.dale.commerce.product.Product;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class Order extends BaseEntity {
 	@JsonBackReference
 	private Member member;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private List<OrderItem> orderItems = new ArrayList<>();
 

@@ -73,7 +73,9 @@ public class OrderItemRepositoryTest {
 
 		// OneToMany Test
 		Order foundOrder = entityManager.find(Order.class, order.getId());
-		assertThat(foundOrder.getOrderItems().size() == 2);
+		OrderItem oi0 = entityManager.find(OrderItem.class, orderItem0.getId());
+		OrderItem oi1 = entityManager.find(OrderItem.class, orderItem1.getId());
+		assertThat(foundOrder.getOrderItems().size()).isEqualTo(2);
 	}
 
 	@Test
