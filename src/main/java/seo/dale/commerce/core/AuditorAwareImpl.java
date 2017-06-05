@@ -1,14 +1,20 @@
 package seo.dale.commerce.core;
 
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-//@Component
 public class AuditorAwareImpl implements AuditorAware<String> {
 
     @Override
     public String getCurrentAuditor() {
-        return "user";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+        	return null;
+        }
+
+    	return (String) authentication.getPrincipal();
     }
 
 }

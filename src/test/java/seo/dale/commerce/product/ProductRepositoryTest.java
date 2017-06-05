@@ -1,14 +1,21 @@
 package seo.dale.commerce.product;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringRunner;
+import seo.dale.commerce.core.AuditorAwareImpl;
 import seo.dale.commerce.core.EntityFactory;
 
 import java.util.Date;
@@ -26,14 +33,18 @@ public class ProductRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
+    @Before
+    public void setUp() {
+	    Authentication authentication = new UsernamePasswordAuthenticationToken("guest", 1234, AuthorityUtils.createAuthorityList("ROLE_USER"));
+	    SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
     @Test
-    @WithMockUser
     public void testSave() {
         Product saved = repository.save(EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100));
         Product found = entityManager.find(Product.class, saved.getId());
 
-        System.out.println("#found: " + found);
-
+	    System.out.println("#found: " + found);
 
         assertThat(found).isSameAs(saved);
         assertThat(found.getName()).isEqualTo("Apple");
@@ -41,6 +52,7 @@ public class ProductRepositoryTest {
         assertThat(found.getPrice()).isEqualTo(1000.1);
         assertThat(found.getStock()).isEqualTo(100);
         assertThat(found.getCreatedDate()).isBefore(new Date());
+        assertThat(found.getCreatedBy()).isEqualTo("guest");
     }
 
     @Test
@@ -77,6 +89,12 @@ public class ProductRepositoryTest {
     @TestConfiguration
     @EnableJpaAuditing
     static class Config {
+
+	    @Bean
+	    public AuditorAware<String> auditorAware() {
+		    return new AuditorAwareImpl();
+	    }
+
     }
 
 }
