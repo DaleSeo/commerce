@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import seo.dale.commerce.core.EntityFactory;
 
+import java.util.Date;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -22,15 +24,19 @@ public class ProductServiceIntegrationTest {
     @Test
     public void testCreate() {
         // Given
-        Product saved = EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100);
+        Product toSave = EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100);
         // When
-        service.create(saved);
+        // toSave.setCreatedDate(new Date());
+        service.create(toSave);
+        System.out.println("#toSave: " + toSave);
+        System.out.println("#toSave.getCreatedDate(): " + toSave.getCreatedDate());
         // Then
-        Product found = repository.findOne(saved.getId());
+        Product found = repository.findOne(toSave.getId());
         assertThat(found.getName()).isEqualTo("Apple");
         assertThat(found.getDescription()).isEqualTo("Red apple");
         assertThat(found.getPrice()).isEqualTo(1000.1);
         assertThat(found.getStock()).isEqualTo(100);
+        assertThat(found.getCreatedDate()).isBefore(new Date());
     }
 
 }

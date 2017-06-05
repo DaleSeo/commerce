@@ -5,9 +5,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import seo.dale.commerce.core.EntityFactory;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,15 +27,20 @@ public class ProductRepositoryTest {
     private TestEntityManager entityManager;
 
     @Test
+    @WithMockUser
     public void testSave() {
         Product saved = repository.save(EntityFactory.newProduct("Apple", "Red apple", 1000.1, 100));
         Product found = entityManager.find(Product.class, saved.getId());
+
+        System.out.println("#found: " + found);
+
 
         assertThat(found).isSameAs(saved);
         assertThat(found.getName()).isEqualTo("Apple");
         assertThat(found.getDescription()).isEqualTo("Red apple");
         assertThat(found.getPrice()).isEqualTo(1000.1);
         assertThat(found.getStock()).isEqualTo(100);
+        assertThat(found.getCreatedDate()).isBefore(new Date());
     }
 
     @Test
@@ -63,6 +72,11 @@ public class ProductRepositoryTest {
         Product found = entityManager.find(Product.class, 1L);
 
         assertThat(found).isNull();
+    }
+
+    @TestConfiguration
+    @EnableJpaAuditing
+    static class Config {
     }
 
 }

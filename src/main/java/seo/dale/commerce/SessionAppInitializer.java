@@ -1,6 +1,9 @@
 package seo.dale.commerce;
 
-import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
+//import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
+//
+//public class SessionAppInitializer extends AbstractHttpSessionApplicationInitializer {
+//}
 
-public class SessionAppInitializer extends AbstractHttpSessionApplicationInitializer {
+public class SessionAppInitializer {
 }
