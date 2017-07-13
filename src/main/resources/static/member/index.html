@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Dale's Commerce</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+</head>
+<body>
+  <div id="app" class="ui container">
+    <div class="ui two columns grid">
+      <div class="column">
+        <member-list></member-list>
+      </div>
+      <div class="column">
+        <member-form></member-form>
+      </div>
+    </div>
+  </div>
+
+  <template id="member-list">
+    <div class="ui items">
+      <div class="item" v-for="member in members">
+        {{member.username}} ({{member.email}})
+      </div>
+    </div>
+  </template>
+
+  <template id="member-form">
+    <div>member from</div>
+  </template>
+
+  <script>
+    Vue.component('member-list', {
+      template: '#member-list'
+    })
+
+    Vue.component('member-form', {
+      template: '#member-form'
+    })
+
+    new Vue({
+      el: '#app',
+      data () {
+        return {
+          members: []
+        }
+      },
+      created () {
+        this.fetch()
+      },
+      methods: {
+        fetch () {
+          this.$http.get('/api/members')
+            .then(res => res.body)
+            .then(members => this.members = members)
+        }
+      }
+    })
+  </script>
+</body>
+</html>
