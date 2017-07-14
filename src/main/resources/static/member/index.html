@@ -4,8 +4,10 @@
   <title>Dale's Commerce</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css" integrity="sha256-5+W3JHnvGYIJkVxUBsw+jBi9+pOlu9enPX3vZapXj5M=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha256-ENFZrbVzylNbgnXx0n3I1g//2WeO47XxoPe0vkp3NC8=" crossorigin="anonymous" />
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js" integrity="sha256-97Q90i72uoJfYtVnO2lQcLjbjBySZjLHx50DYhCBuJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha256-3blsJd4Hli/7wCQ+bmgXfOdK7p/ZUMtPXY08jmxSSgk=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 </head>
@@ -13,10 +15,10 @@
   <div id="app" class="ui container">
     <div class="ui two columns grid">
       <div class="column">
-        <member-list></member-list>
+        <member-list :members="members"></member-list>
       </div>
       <div class="column">
-        <member-form></member-form>
+        <member-form :member="member" @save="save"></member-form>
       </div>
     </div>
   </div>
@@ -30,23 +32,36 @@
   </template>
 
   <template id="member-form">
-    <div>member from</div>
+    <form class="ui form" @submit.prevent="$emit('save')">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" v-model="member.username">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="text" v-model="member.email">
+      </div>
+      <button class="ui right floated button" type="submit">Submit</button>
+    </form>
   </template>
 
   <script>
     Vue.component('member-list', {
-      template: '#member-list'
+      template: '#member-list',
+      props: ['members']
     })
 
     Vue.component('member-form', {
-      template: '#member-form'
+      template: '#member-form',
+      props: ['member']
     })
 
     new Vue({
       el: '#app',
       data () {
         return {
-          members: []
+          members: [],
+          member: {}
         }
       },
       created () {
@@ -57,6 +72,15 @@
           this.$http.get('/api/members')
             .then(res => res.body)
             .then(members => this.members = members)
+            .catch(err => toastr.error('Failed to fetch members.'))
+        },
+        save () {
+          console.log('# save')
+          this.$http.post('/api/members', this.member)
+            .then(res => res.body)
+            .then(_ => toastr.success('Successfully saved.'))
+            .catch(err => toastr.error('Failed to save member.'))
+            .then(_ => this.fetch())
         }
       }
     })

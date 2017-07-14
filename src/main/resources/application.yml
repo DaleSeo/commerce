@@ -11,10 +11,14 @@ spring:
   jpa:
     show-sql: true
     hibernate.ddl-auto: update
+management:
+  security:
+    enabled: false
 #  security:
 #    name: user
 #    password: password
 #    role: USER
+
 
 ---
 spring:

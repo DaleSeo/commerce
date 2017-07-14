@@ -1,6 +1,5 @@
 package seo.dale.commerce.order;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import seo.dale.commerce.common.BaseEntity;
 import seo.dale.commerce.member.Member;
@@ -15,7 +14,7 @@ import java.util.List;
 public class Order extends BaseEntity {
 
 	@ManyToOne
-	@JsonBackReference
+
 	private Member member;
 
 	@OneToMany(fetch = FetchType.EAGER)

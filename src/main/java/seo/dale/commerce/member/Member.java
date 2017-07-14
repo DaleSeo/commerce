@@ -1,10 +1,12 @@
 package seo.dale.commerce.member;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import seo.dale.commerce.common.BaseEntity;
 import seo.dale.commerce.order.Order;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,8 @@ public class Member extends BaseEntity {
     private String email;
 
 	@OneToMany
-	@JsonManagedReference
+//	@JsonBackReference
+	@JsonIgnore
 	private List<Order> orders = new ArrayList<>();
 
 	public Member() {
